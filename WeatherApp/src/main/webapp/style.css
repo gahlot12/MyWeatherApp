@@ -1,0 +1,94 @@
+/* Navbar container styles */
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .right a {
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.navbar .right button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.navbar .right button:hover {
+    opacity: 0.8;
+}
+
+/* Search container styles */
+.search-container {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.search-container input[type="text"] {
+    padding: 10px;
+    width: 300px;
+}
+
+.search-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    opacity: 0.8;
+}
+
+/* Weather container styles */
+.weather-container {
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2; /* Light background color */
+    max-width: 400px;
+}
+
+/* Styles for city weather information */
+.city-weather-info {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2; /* Light background color */
+    max-width: 400px;
+}
+
+.city-weather-info h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.city-weather-info p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.city-weather-info p:last-child {
+    margin-bottom: 0; /* Remove margin bottom for the last paragraph */
+}
+
