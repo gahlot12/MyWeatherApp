@@ -1,0 +1,100 @@
+/* Navbar container styles */
+.navbar {
+    background-color: #333;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .left h3 {
+        color: white; /* Set text color to white */
+        }
+
+.navbar .left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .right a {
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.navbar .right button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.navbar .right button:hover {
+    opacity: 0.8;
+}
+
+
+/* Search container styles */
+.search-container {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.search-container input[type="text"] {
+    padding: 10px;
+    width: 300px;
+}
+
+.search-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    opacity: 0.8;
+}
+
+/* Weather container styles */
+.weather-container {
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2; /* Light background color */
+    max-width: 400px;
+}
+
+/* Profile cities container styles */
+.profile-cities {
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2; /* Light background color */
+    max-width: 800px; /* Adjust width as needed */
+}
+
+.profile-cities h2 {
+    color: #333; /* Dark text color */
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#profileCities {
+    /* You can add specific styling for the container where cities will be dynamically added */
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

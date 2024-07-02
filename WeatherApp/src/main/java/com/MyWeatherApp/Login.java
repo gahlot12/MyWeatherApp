@@ -46,6 +46,7 @@ public class Login extends HttpServlet {
                 // Create a session if none exists, otherwise get the existing session
                 HttpSession session = req.getSession(true);
                 session.setAttribute("session_name", userName);
+                session.setAttribute("session_email", myEmail);
                 
                 // Redirect to profile.jsp upon successful login
                 resp.sendRedirect(req.getContextPath() + "/profile.jsp");
