@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+    // Check if session_name is not set, redirect to login.jsp
+    if (session.getAttribute("session_name") == null) {
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -188,6 +195,51 @@
 
 	    profileCitiesDiv.appendChild(cityWeatherInfo);
 	}
+	
+	function fetchAndCalculateAverage(startDate, endDate, cityName) {
+	    fetch('./temp.json')
+	        .then(res => res.json())
+	        .then(data => {
+	            const cities = data.cities; // Corrected variable name
+	            const cityData = cities.find(city => city.city === cityName); // Corrected variable name
+	            if (cityData) {
+	                const temperatures = cityData.temperatures;
+	                let total = 0;
+	                let count = 0;
+
+	                // Iterate through each date in the temperatures object
+	                for (const date in temperatures) {
+	                    if (date >= startDate && date <= endDate) {
+	                        total += temperatures[date];
+	                        count++;
+	                    }
+	                }
+
+	                if (count > 0) {
+	                    const average = total / count;
+	                    // Display average temperature on the web page
+	                    const averageResult = document.getElementById('averageResult');
+	                    averageResult.innerHTML = "<p>Average temperature in " + cityName +" between " + startDate + " and " + endDate + " is " + average.toFixed(2) + " °C</p>";
+	                } else {
+	                    console.log("No temperature data found between " + startDate + " and " + endDate);
+	                    // Display message if no data found
+	                    const averageResult = document.getElementById('averageResult');
+	                    averageResult.innerHTML = "<p>No temperature data found between " + startDate + " and " + endDate + "</p>";
+	                }
+	            } else {
+	                console.log("City '" + cityName + "' not found in the data");
+	                // Display message if city not found
+	                const averageResult = document.getElementById('averageResult');
+	                averageResult.innerHTML = "<p>City '" + cityName + "' not found in the data</p>";
+	            }
+	        })
+	        .catch(err => console.error('Error fetching data:', err));
+	}
+
+
+	
+	//fetchAndCalculateAverage('2023-07-10', '2023-09-20','Delhi');
+
 
 </script>
 </head>
@@ -222,6 +274,34 @@
         <p>Temperature: <span id="temperature"></span></p>
         <p>Description: <span id="description"></span></p>
     </div>
+    
+    <div>
+	    <h1>Calculate Average Temperature</h1>
+	    <form onsubmit="event.preventDefault(); fetchAndCalculateAverage(startDate.value, endDate.value, city.value);">
+	        
+	        <label for="startDate">Start Date:</label>
+	        <input type="text" id="startDate" name="startDate" placeholder="yyyy-mm-dd"><br><br>
+	        
+	        <label for="endDate">End Date:</label>
+	        <input type="text" id="endDate" name="endDate" placeholder="yyyy-mm-dd"><br><br>
+	
+	        <label for="city">Select City:</label>
+	        <select id="city" name="city">
+	        	<option value="select">select</option>
+	            <option value="Jaipur">Jaipur</option>
+	            <option value="Pune">Pune</option>
+	            <option value="Delhi">Delhi</option>
+	            <option value="Mumbai">Mumbai</option>
+	        </select><br><br>
+	        
+	        <button type="submit">Calculate</button>
+	    </form>
+	    <div id="averageResult">
+	        <!-- Average temperature result will be displayed here -->
+	    </div>
+	</div>
+
+
     
     <div class="profile-cities">
         <h2>Weather in Your Profile Cities</h2>

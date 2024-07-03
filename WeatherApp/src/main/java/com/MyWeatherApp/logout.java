@@ -18,7 +18,7 @@ public class logout extends HttpServlet{
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/HomePage.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
 		rd.forward(req, resp);
 	}
 }
