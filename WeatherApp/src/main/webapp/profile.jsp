@@ -122,9 +122,6 @@
 	        const result = await response.text();
 	        alert(result); // Display the response message
 	        
-	        // Optionally update UI or perform any other action after adding the city
-	        // Example: Refresh the list of profile cities
-	        // fetchProfileCities();
 	    } catch (error) {
 	        console.error('Error adding city to profile:', error);
 	        alert('Error adding city to profile. Please try again later.');
@@ -166,7 +163,7 @@
 	    }
 	}
 
-	// Call fetchWeatherForCitiesInDatabase when the page loads
+// 	Call fetchWeatherForCitiesInDatabase when the page loads
 	window.onload = function() {
 	    fetchWeatherForCitiesInDatabase();
 	};
@@ -244,71 +241,78 @@
 </script>
 </head>
 <body>
-		<div class="navbar">
-	        <div class="left">
-	            <h3>Welcome ${session_name}</h3>
-	        </div>
-	        <div class="right">
-	            <a href="logout"><button>Logout</button></a>
-	        </div>
-	    </div>
-		
-		<div class="LatLongSearch">
-        <div class="search-container">
-            <input id="latitudeInput" type="text" placeholder="Enter Latitude" spellcheck="false"/>
-            <input id="longitudeInput" type="text" placeholder="Enter Longitude" spellcheck="false"/>
-            <button onclick="fetchWeatherByCoordinates()">Search by Lat/Lon</button>
+    <div class="navbar">
+        <div class="left">
+            <h3>Welcome ${session_name}</h3>
         </div>
-    </div>
-    
-    <div class="CityNameSearch">
-        <div class="search-container">
-            <input id="cityNameInput" type="text" placeholder="Enter City Name" spellcheck="false" />
-            <button onclick="fetchWeatherByCityName()">Search by City Name</button>
-            <button onclick="addToProfilePage()">Add to Profile</button>
+        <div class="right">
+            <a href="logout"><button>Logout</button></a>
         </div>
     </div>
 
-    <div class="weather-container">
-        <h2>Weather in <span id="cityName"></span></h2>
-        <p>Temperature: <span id="temperature"></span></p>
-        <p>Description: <span id="description"></span></p>
-    </div>
-    
-    <div>
-	    <h1>Calculate Average Temperature</h1>
-	    <form onsubmit="event.preventDefault(); fetchAndCalculateAverage(startDate.value, endDate.value, city.value);">
-	        
-	        <label for="startDate">Start Date:</label>
-	        <input type="text" id="startDate" name="startDate" placeholder="yyyy-mm-dd"><br><br>
-	        
-	        <label for="endDate">End Date:</label>
-	        <input type="text" id="endDate" name="endDate" placeholder="yyyy-mm-dd"><br><br>
-	
-	        <label for="city">Select City:</label>
-	        <select id="city" name="city">
-	        	<option value="select">select</option>
-	            <option value="Jaipur">Jaipur</option>
-	            <option value="Pune">Pune</option>
-	            <option value="Delhi">Delhi</option>
-	            <option value="Mumbai">Mumbai</option>
-	        </select><br><br>
-	        
-	        <button type="submit">Calculate</button>
-	    </form>
-	    <div id="averageResult">
-	        <!-- Average temperature result will be displayed here -->
-	    </div>
-	</div>
+    <div id="content-container">
 
+        <div id="left-container">
+            <div class="CityNameSearch">
+                <div class="search-container">
+                    <input id="cityNameInput" type="text" placeholder="Enter City Name" spellcheck="false" />
+                    <button onclick="fetchWeatherByCityName()">Search by City Name</button>
+                    <button onclick="addToProfilePage()">Add to Profile</button>
+                </div>
+            </div>
 
-    
-    <div class="profile-cities">
-        <h2>Weather in Your Profile Cities</h2>
-        <div id="profileCities">
-            <!-- Cities will be dynamically added here -->
+            <div class="LatLongSearch">
+                <div class="search-container">
+                    <input id="latitudeInput" type="text" placeholder="Enter Latitude" spellcheck="false"/>
+                    <input id="longitudeInput" type="text" placeholder="Enter Longitude" spellcheck="false"/>
+                    <button onclick="fetchWeatherByCoordinates()">Search by Lat/Lon</button>
+                </div>
+            </div>
+
+            <div class="weather-container">
+                <h2>Weather in <span id="cityName"></span></h2>
+                <p>Temperature: <span id="temperature"></span></p>
+                <p>Description: <span id="description"></span></p>
+            </div>
+
+            <div class="profile-cities">
+                <h2>Weather in Your Profile Cities</h2>
+                <div id="profileCities">
+                    <!-- Cities will be dynamically added here -->
+                </div>
+            </div>
         </div>
+
+        <div id="right-container">
+            <div>
+                <h1>Calculate Average Temperature</h1>
+                <form onsubmit="event.preventDefault(); fetchAndCalculateAverage(startDate.value, endDate.value, city.value);">
+                    
+                    <label for="startDate">Start Date:</label>
+                    <input type="text" id="startDate" name="startDate" placeholder="yyyy-mm-dd"><br><br>
+                    
+                    <label for="endDate">End Date:</label>
+                    <input type="text" id="endDate" name="endDate" placeholder="yyyy-mm-dd"><br><br>
+        
+                    <label for="city">Select City:</label>
+                    <select id="city" name="city">
+                        <option value="select">select</option>
+                        <option value="Jaipur">Jaipur</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                    </select><br><br>
+                    
+                    <button type="submit">Calculate</button>
+                </form>
+                <div id="averageResult">
+                    <!-- Average temperature result will be displayed here -->
+                </div>
+            </div>
+        </div>
+
     </div>
-		
+
+    
 </body>
 </html>
