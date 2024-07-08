@@ -20,15 +20,12 @@ import java.util.stream.Collectors;
 public class avgTempServlet extends HttpServlet {
 
 	private static final String JSON_FILE_PATH = "C:/Users/kunal gahlot/eclipse-workspace/WeatherApp/src/main/webapp/temp.json";
- // Replace with actual path
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Read form parameters
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
         String city = request.getParameter("city");
 
-        // Parse dates
         LocalDate startDate = LocalDate.parse(startDateStr);
         LocalDate endDate = LocalDate.parse(endDateStr);
 
@@ -36,27 +33,22 @@ public class avgTempServlet extends HttpServlet {
             String errorMessage = "Error: End date cannot be before start date. Please enter correct dates.";
             request.setAttribute("averageTemperatureResult", errorMessage);
             request.getRequestDispatcher("/profile.jsp").forward(request, response);
-            return; // Stop further processing
+            return;
         }
         
-        // Read JSON file and parse data
         String jsonContent = readJsonFile(JSON_FILE_PATH);
         Map<String, Object> jsonData = parseJson(jsonContent);
 
-        // Find temperatures for the selected city
         Map<String, Double> temperatures = findTemperatures(jsonData, city);
 
-        // Calculate average temperature for the specified date range
         double averageTemperature = calculateAverageTemperature(temperatures, startDate, endDate);
 
-        // Prepare result
         String resultMessage = String.format("Average temperature from %s to %s in %s: %.2f °C",
                 startDateStr, endDateStr, city, averageTemperature);
 
         // Set result message in request attribute to be accessed in JSP
         request.setAttribute("averageTemperatureResult", resultMessage);
 
-        // Forward request to JSP for rendering
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
     }
 
@@ -78,7 +70,6 @@ public class avgTempServlet extends HttpServlet {
                 String cityName = cityObject.getString("city");
                 JSONObject temperaturesObject = cityObject.getJSONObject("temperatures");
 
-                // Assuming temperatures are stored as key-value pairs in the temperatures object
                 // Modify this part according to your JSON structure
                 Map<String, Double> cityTemperatures = new HashMap<>();
                 for (String key : temperaturesObject.keySet()) {
@@ -89,18 +80,17 @@ public class avgTempServlet extends HttpServlet {
                 jsonData.put(cityName, cityTemperatures);
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Handle JSON parsing exception as needed
+            e.printStackTrace(); 
         }
 
         return jsonData;
     }
 
     private Map<String, Double> findTemperatures(Map<String, Object> jsonData, String city) {
-        // Get temperatures for the selected city
         if (jsonData.containsKey(city)) {
             return (Map<String, Double>) jsonData.get(city);
         }
-        return new HashMap<>(); // Return empty map if city not found
+        return new HashMap<>();
     }
 
     private double calculateAverageTemperature(Map<String, Double> temperatures, LocalDate startDate, LocalDate endDate) {
@@ -119,7 +109,7 @@ public class avgTempServlet extends HttpServlet {
         if (count > 0) {
             return sum / count;
         } else {
-            return 0.0; // Return 0 if no temperatures found in the date range
+            return 0.0;
         }
     }
 }

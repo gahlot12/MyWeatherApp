@@ -122,6 +122,8 @@
 	        const result = await response.text();
 	        alert(result); // Display the response message
 	        
+	        location.reload();
+	        
 	    } catch (error) {
 	        console.error('Error adding city to profile:', error);
 	        alert('Error adding city to profile. Please try again later.');
@@ -201,6 +203,11 @@
 	}
 	
 	function fetchAndCalculateAverage(startDate, endDate, cityName) {
+		if (endDate < startDate) {
+	        const averageResult = document.getElementById('averageResult');
+	        averageResult.innerHTML = "<p>Error: End date cannot be before start date. Please enter correct dates.</p>";
+	        return;
+	    }
 	    fetch('./temp.json')
 	        .then(res => res.json())
 	        .then(data => {
@@ -292,7 +299,7 @@
 
         <div id="right-container">
             <div>
-                <h1>Calculate Average Temperature</h1>
+                <h2>Calculate Average Temperature</h2>
                 <form onsubmit="event.preventDefault(); fetchAndCalculateAverage(startDate.value, endDate.value, city.value);">
                     
                     <label for="startDate">Start Date:</label>
@@ -318,7 +325,7 @@
             </div>
             
             <div>
-		        <h1>Calculate Average Temperature</h1>
+		        <h2>Calculate Average Temperature</h2>
 		        <form action="avgTemp" method="post">
 		            <label for="startDate">Start Date:</label>
 		            <input type="text" id="startDate" name="startDate" placeholder="yyyy-mm-dd"><br><br>
@@ -340,7 +347,7 @@
 		        <div id="averageResult">
 		            <!-- Average temperature result will be displayed here -->
 		            <c:if test="${not empty averageTemperatureResult}">
-		                <h2>Average Temperature Result</h2>
+<!-- 		                <h2>Average Temperature Result</h2> -->
 		                <p>${averageTemperatureResult}</p>
 		            </c:if>
 		<%--             <c:if test="${empty averageTemperatureResult}"> --%>
@@ -349,7 +356,8 @@
 		        </div>
 		    
         	</div>
-
+	</div>
+    
     </div>
 
     

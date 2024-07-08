@@ -8,6 +8,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/loginPageStyle.css">
 </head>
 <body>
+
+    <div class="navbar">
+        <div class="left">
+            <a class="navbar-brand">Weatherly</a>
+        </div>
+        <div class="right">
+            <a href="register.jsp"><button>Register</button></a>
+        </div>
+    </div>
+
     <div class="login">
         <h1>Login</h1>
         <form action="loginForm" method="post">

@@ -13,7 +13,6 @@
         <form id="signup" action="Register" method="post">
             <div class="header">
                 <h3>Sign Up</h3>  
-                <p>You have to fill this form</p>
             </div>
             <div class="sep"></div>
             <div class="inputs">
@@ -25,7 +24,8 @@
                 <input type="radio" name="gender1" value="Female"/> Female
                 <br/><br/>
                 
-                <input type="submit" value="Register"/>
+                <input type="submit" value="Register" class="submit-button">
+
             </div>
         </form>
     </div>

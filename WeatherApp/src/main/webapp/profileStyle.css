@@ -11,11 +11,14 @@
     line-height: 1.6;
     background-color: #f2f2f2;
     min-height: 100vh;
+    background-image: url('./images/profileDef.jpeg');
+    background-size: cover;
+    background-position: center;
   }
   
   /* Navbar container styles */
   .navbar {
-    background-color: #333;
+    background-color: #505c84;
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -30,16 +33,17 @@
   }
   
   .navbar .right button {
-    background-color: #4CAF50;
+    background-color: #414e75;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    border-radius: 5px;
   }
   
   .navbar .right button:hover {
-    opacity: 0.8;
+    background-color: #656a9c;
   }
   
   /* Main content containers */
@@ -53,6 +57,7 @@
   padding: 20px;
   margin: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  opacity: 75%;
 }
 
 #left-container {
@@ -82,7 +87,7 @@
 }
 
 .search-container button {
-  background-color: #4CAF50;
+  background-color: #414e75;
   color: white;
   border: none;
   cursor: pointer;
@@ -156,7 +161,7 @@ form input[type="text"], form select {
 }
 
 form button {
-    background-color: #4CAF50;
+    background-color: #414e75;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -170,20 +175,15 @@ form button:hover {
 
 /* Responsive layout adjustments */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    #left-container, #right-container {
-        width: 90%;
-        margin: 10px;
-    }
+  #content-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 480px) {
     .navbar {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
     }
     
