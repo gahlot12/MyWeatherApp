@@ -7,6 +7,7 @@
 <title>MyWeatherApp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 <script>
+
     async function fetchWeatherByCoordinates() {
         const lat = document.getElementById('latitudeInput').value.trim();
         const lon = document.getElementById('longitudeInput').value.trim();

@@ -129,10 +129,17 @@
 	}
 
 	async function fetchWeatherForCitiesInDatabase() {
+		const email = '${session_name}';
 	    try {
 	        const url = "${pageContext.request.contextPath}/fetchCities";
-	        const response = await fetch(url);
-	        
+// 	        const response = await fetch(url);
+	        const params = new URLSearchParams();
+	        params.append('email', email);
+	        const response = await fetch(url, {
+	            method: 'POST',
+	            body: params
+	        });
+	        console.log(response);
 	        if (!response.ok) {
 	            throw new Error('Failed to fetch city data');
 	        }
@@ -309,7 +316,39 @@
                     <!-- Average temperature result will be displayed here -->
                 </div>
             </div>
-        </div>
+            
+            <div>
+		        <h1>Calculate Average Temperature</h1>
+		        <form action="avgTemp" method="post">
+		            <label for="startDate">Start Date:</label>
+		            <input type="text" id="startDate" name="startDate" placeholder="yyyy-mm-dd"><br><br>
+		            
+		            <label for="endDate">End Date:</label>
+		            <input type="text" id="endDate" name="endDate" placeholder="yyyy-mm-dd"><br><br>
+		
+		            <label for="city">Select City:</label>
+		            <select id="city" name="city">
+		                <option value="select">select</option>
+		                <option value="Jaipur">Jaipur</option>
+		                <option value="Pune">Pune</option>
+		                <option value="Delhi">Delhi</option>
+		                <option value="Mumbai">Mumbai</option>
+		            </select><br><br>
+		            
+		            <button type="submit">Calculate</button>
+		        </form>
+		        <div id="averageResult">
+		            <!-- Average temperature result will be displayed here -->
+		            <c:if test="${not empty averageTemperatureResult}">
+		                <h2>Average Temperature Result</h2>
+		                <p>${averageTemperatureResult}</p>
+		            </c:if>
+		<%--             <c:if test="${empty averageTemperatureResult}"> --%>
+		<!--                 <p>No average temperature result available</p> -->
+		<!--             </c:if> -->
+		        </div>
+		    
+        	</div>
 
     </div>
 

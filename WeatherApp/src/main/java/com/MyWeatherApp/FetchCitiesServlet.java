@@ -19,11 +19,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/fetchCities")
 public class FetchCitiesServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         
         // Connect to the database
@@ -31,12 +32,21 @@ public class FetchCitiesServlet extends HttpServlet {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
+        HttpSession session = request.getSession();
+        String userEmail = request.getParameter("email");
+        
+        if (userEmail == null || userEmail.isEmpty()) {
+            response.getWriter().write("{\"error\": \"User not logged in\"}");
+            return;
+        }
+        
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/UserRegistration", "root", "Kunal1234@");
 
-            String sql = "SELECT cityname FROM CityName";
+            String sql = "SELECT cityname FROM usersCity WHERE email = ?";
             stmt = conn.prepareStatement(sql);
+            stmt.setString(1, userEmail);
             rs = stmt.executeQuery();
             
             List<String> cities = new ArrayList<>();
