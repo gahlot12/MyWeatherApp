@@ -96,11 +96,11 @@
     }
 	
 	async function addToProfilePage() {
-	    const cityName = document.getElementById('cityNameInput').value.trim();
+	    let cityName = document.getElementById('cityName').textContent.trim();
 	    const email = '${session_name}';
 	    
-	    if (cityName === "") {
-	        alert("Please enter a city name.");
+	    if (cityName === "" || cityName === "City not found" || cityName === "Weather description not available") {
+	        alert("Please search for a valid city name first.");
 	        return;
 	    }
 	    
@@ -129,6 +129,7 @@
 	        alert('Error adding city to profile. Please try again later.');
 	    }
 	}
+
 
 	async function fetchWeatherForCitiesInDatabase() {
 		const email = '${session_name}';
