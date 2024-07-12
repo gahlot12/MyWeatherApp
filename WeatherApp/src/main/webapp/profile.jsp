@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%
     // Check if session_name is not set, redirect to login.jsp
     if (session.getAttribute("session_name") == null) {
@@ -99,7 +98,7 @@
         const descriptionElement = document.getElementById('description');
 
         if (data.name) {
-            cityNameElement.textContent = "Weather in " + data.name;
+            cityNameElement.textContent = data.name;
         } else {
             cityNameElement.textContent = "City not found";
         }
