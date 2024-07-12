@@ -14,7 +14,7 @@
             <a class="navbar-brand">Weatherly</a>
         </div>
         <div class="right">
-            <a href="register.jsp"><button>Register</button></a>
+<!--             <a href="register.jsp"><button>Register</button></a> -->
         </div>
     </div>
 

@@ -50,6 +50,7 @@ public class avgTempServlet extends HttpServlet {
         request.setAttribute("averageTemperatureResult", resultMessage);
 
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
+//        request.getRequestDispatcher("/avgTemp.jsp").forward(request, response);
     }
 
     private String readJsonFile(String filePath) throws IOException {

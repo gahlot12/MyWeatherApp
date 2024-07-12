@@ -14,6 +14,28 @@
 <title>Profile Page</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/profileStyle.css">
 <script>
+
+// 	async function fetchWeather() {
+// 	    const input = document.getElementById('searchInput').value.trim();
+	    
+// 	    if (input === "") {
+// 	        alert("Please enter a city name or latitude/longitude.");
+// 	        return;
+// 	    }
+	    
+// 	    // Check if input is numeric (latitude/longitude format)
+// 	    const isNumeric = /^[-+]?[0-9]*\.?[0-9]+,[-+]?[0-9]*\.?[0-9]+$/.test(input);
+	    
+// 	    if (isNumeric) {
+// 	        // Input is latitude/longitude format
+// 	        const [lat, lon] = input.split(',').map(coord => coord.trim());
+// 	        await fetchWeatherByCoordinates(lat, lon);
+// 	    } else {
+// 	        // Input is city name
+// 	        await fetchWeatherByCityName(input);
+// 	    }
+// 	}
+	
 	async function fetchWeatherByCoordinates() {
 	    const lat = document.getElementById('latitudeInput').value.trim();
 	    const lon = document.getElementById('longitudeInput').value.trim();
@@ -77,19 +99,19 @@
         const descriptionElement = document.getElementById('description');
 
         if (data.name) {
-            cityNameElement.textContent = data.name;
+            cityNameElement.textContent = "Weather in " + data.name;
         } else {
             cityNameElement.textContent = "City not found";
         }
 
         if (data.main && data.main.temp) {
-            temperatureElement.textContent = data.main.temp + "°C";
+            temperatureElement.textContent ="Temperature: " + data.main.temp + "°C";
         } else {
             temperatureElement.textContent = "Temperature data not available";
         }
 
         if (data.weather && data.weather.length > 0 && data.weather[0].description) {
-            descriptionElement.textContent = data.weather[0].description;
+            descriptionElement.textContent = "Description: " + data.weather[0].description;
         } else {
             descriptionElement.textContent = "Weather description not available";
         }
@@ -261,6 +283,7 @@
             <h3>Welcome ${session_name}</h3>
         </div>
         <div class="right">
+<!--             <a href="./avgTemp.jsp"><button>Average Temperature</button></a> -->
             <a href="logout"><button>Logout</button></a>
         </div>
     </div>
@@ -268,11 +291,21 @@
     <div id="content-container">
 
         <div id="left-container">
+        
+<!--         <div class="weather-search-container"> -->
+<!-- 		    <div class="search-container"> -->
+<!-- 		        <input id="searchInput" type="text" placeholder="Enter City Name or Lat/Lon" spellcheck="false" /> -->
+<!-- 		        <button onclick="fetchWeather()">Search</button> -->
+<!-- 		        <button onclick="addToProfilePage()">Add</button> -->
+<!-- 		    </div> -->
+<!-- 		</div> -->
+
+        
             <div class="CityNameSearch">
                 <div class="search-container">
                     <input id="cityNameInput" type="text" placeholder="Enter City Name" spellcheck="false" />
-                    <button onclick="fetchWeatherByCityName()">Search by City Name</button>
-                    <button onclick="addToProfilePage()">Add to Profile</button>
+                    <button onclick="fetchWeatherByCityName()">Search</button>
+                    
                 </div>
             </div>
 
@@ -280,14 +313,15 @@
                 <div class="search-container">
                     <input id="latitudeInput" type="text" placeholder="Enter Latitude" spellcheck="false"/>
                     <input id="longitudeInput" type="text" placeholder="Enter Longitude" spellcheck="false"/>
-                    <button onclick="fetchWeatherByCoordinates()">Search by Lat/Lon</button>
+                    <button onclick="fetchWeatherByCoordinates()">Search</button>
+                    <button onclick="addToProfilePage()">Add</button>
                 </div>
             </div>
 
             <div class="weather-container">
-                <h2>Weather in <span id="cityName"></span></h2>
-                <p>Temperature: <span id="temperature"></span></p>
-                <p>Description: <span id="description"></span></p>
+                <h2><span id="cityName"></span></h2>
+                <p><span id="temperature"></span></p>
+                <p><span id="description"></span></p>
             </div>
 
             <div class="profile-cities">
@@ -325,38 +359,38 @@
                 </div>
             </div>
             
-            <div>
-		        <h2>Calculate Average Temperature</h2>
-		        <form action="avgTemp" method="post">
-		            <label for="startDate">Start Date:</label>
-		            <input type="text" id="startDate" name="startDate" placeholder="yyyy-mm-dd"><br><br>
+<!--             <div> -->
+<!-- 		        <h2>Calculate Average Temperature</h2> -->
+<!-- 		        <form action="avgTemp" method="post"> -->
+<!-- 		            <label for="startDate">Start Date:</label> -->
+<!-- 		            <input type="text" id="startDate" name="startDate" placeholder="yyyy-mm-dd"><br><br> -->
 		            
-		            <label for="endDate">End Date:</label>
-		            <input type="text" id="endDate" name="endDate" placeholder="yyyy-mm-dd"><br><br>
+<!-- 		            <label for="endDate">End Date:</label> -->
+<!-- 		            <input type="text" id="endDate" name="endDate" placeholder="yyyy-mm-dd"><br><br> -->
 		
-		            <label for="city">Select City:</label>
-		            <select id="city" name="city">
-		                <option value="select">select</option>
-		                <option value="Jaipur">Jaipur</option>
-		                <option value="Pune">Pune</option>
-		                <option value="Delhi">Delhi</option>
-		                <option value="Mumbai">Mumbai</option>
-		            </select><br><br>
+<!-- 		            <label for="city">Select City:</label> -->
+<!-- 		            <select id="city" name="city"> -->
+<!-- 		                <option value="select">select</option> -->
+<!-- 		                <option value="Jaipur">Jaipur</option> -->
+<!-- 		                <option value="Pune">Pune</option> -->
+<!-- 		                <option value="Delhi">Delhi</option> -->
+<!-- 		                <option value="Mumbai">Mumbai</option> -->
+<!-- 		            </select><br><br> -->
 		            
-		            <button type="submit">Calculate</button>
-		        </form>
-		        <div id="averageResult">
-		            <!-- Average temperature result will be displayed here -->
-		            <c:if test="${not empty averageTemperatureResult}">
+<!-- 		            <button type="submit">Calculate</button> -->
+<!-- 		        </form> -->
+<!-- 		        <div id="averageResult"> -->
+<!-- 		            Average temperature result will be displayed here -->
+<%-- 		            <c:if test="${not empty averageTemperatureResult}"> --%>
 <!-- 		                <h2>Average Temperature Result</h2> -->
-		                <p>${averageTemperatureResult}</p>
-		            </c:if>
+<%-- 		                <p>${averageTemperatureResult}</p> --%>
+<!-- 		            </c:if> -->
 		<%--             <c:if test="${empty averageTemperatureResult}"> --%>
 		<!--                 <p>No average temperature result available</p> -->
 		<!--             </c:if> -->
-		        </div>
+<!-- 		        </div> -->
 		    
-        	</div>
+<!--         	</div> -->
 	</div>
     
     </div>
